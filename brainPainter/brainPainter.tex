@@ -127,6 +127,86 @@
 \usepackage{filecontents}
 
 \begin{filecontents*}{bibliography.bib}
+@article{jack2010hypothetical,
+  title={Hypothetical model of dynamic biomarkers of the Alzheimer's pathological cascade},
+  author={Jack Jr, Clifford R and Knopman, David S and Jagust, William J and Shaw, Leslie M and Aisen, Paul S and Weiner, Michael W and Petersen, Ronald C and Trojanowski, John Q},
+  journal={The Lancet Neurology},
+  volume={9},
+  number={1},
+  pages={119--128},
+  year={2010},
+  publisher={Elsevier}
+}
+@article{scahill2002mapping,
+  title={Mapping the evolution of regional atrophy in Alzheimer's disease: unbiased analysis of fluid-registered serial MRI},
+  author={Scahill, Rachael I and Schott, Jonathan M and Stevens, John M and Rossor, Martin N and Fox, Nick C},
+  journal={Proceedings of the National Academy of Sciences},
+  volume={99},
+  number={7},
+  pages={4703--4707},
+  year={2002},
+  publisher={National Acad Sciences}
+}
+@article{seeley2009neurodegenerative,
+  title={Neurodegenerative diseases target large-scale human brain networks},
+  author={Seeley, William W and Crawford, Richard K and Zhou, Juan and Miller, Bruce L and Greicius, Michael D},
+  journal={Neuron},
+  volume={62},
+  number={1},
+  pages={42--52},
+  year={2009},
+  publisher={Elsevier}
+}
+@article{migliaccio2015mapping,
+  title={Mapping the progression of atrophy in early-and late-onset Alzheimer’s disease},
+  author={Migliaccio, Raffaella and Agosta, Federica and Possin, Katherine L and Canu, Elisa and Filippi, Massimo and Rabinovici, Gil D and Rosen, Howard J and Miller, Bruce L and Gorno-Tempini, Maria Luisa},
+  journal={Journal of Alzheimer's Disease},
+  volume={46},
+  number={2},
+  pages={351--364},
+  year={2015},
+  publisher={IOS Press}
+}
+@article{chard2002brain,
+  title={Brain atrophy in clinically early relapsing--remitting multiple sclerosis},
+  author={Chard, DT and Griffin, CM and Parker, GJM and Kapoor, R and Thompson, AJ and Miller, DH},
+  journal={Brain},
+  volume={125},
+  number={2},
+  pages={327--337},
+  year={2002},
+  publisher={Oxford University Press}
+}
+@article{schoonheim2012subcortical,
+  title={Subcortical atrophy and cognition: sex effects in multiple sclerosis},
+  author={Schoonheim, Menno M and Popescu, Veronica and Lopes, Fernanda C Rueda and Wiebenga, Oliver T and Vrenken, Hugo and Douw, Linda and Polman, Chris H and Geurts, Jeroen JG and Barkhof, Frederik},
+  journal={Neurology},
+  volume={79},
+  number={17},
+  pages={1754--1761},
+  year={2012},
+  publisher={AAN Enterprises}
+}
+@article{mak2014subcortical,
+  title={Subcortical atrophy is associated with cognitive impairment in mild Parkinson disease: a combined investigation of volumetric changes, cortical thickness, and vertex-based shape analysis},
+  author={Mak, E and Bergsland, N and Dwyer, MG and Zivadinov, R and Kandiah, N},
+  journal={American Journal of Neuroradiology},
+  volume={35},
+  number={12},
+  pages={2257--2264},
+  year={2014},
+  publisher={Am Soc Neuroradiology}
+}
+@article{coughlin2015neuroinflammation,
+  title={Neuroinflammation and brain atrophy in former NFL players: an in vivo multimodal imaging pilot study},
+  author={Coughlin, Jennifer M and Wang, Yuchuan and Munro, Cynthia A and Ma, Shuangchao and Yue, Chen and Chen, Shaojie and Airan, Raag and Kim, Pearl K and Adams, Ashley V and Garcia, Cinthya and others},
+  journal={Neurobiology of disease},
+  volume={74},
+  pages={58--65},
+  year={2015},
+  publisher={Elsevier}
+}
+
 
 
 
@@ -160,7 +240,7 @@
 %% \address{Address\fnref{label3}}
 %% \fntext[label3]{}
 
-\title{BrainPainter: A software for the visualisation of brain structures and pathology}
+\title{BrainPainter: A software for the visualisation of brain structures, biomarkers and associated pathological processes}
 
 %% use optional labels to link authors explicitly to addresses:
 %% \author[label1,label2]{}
@@ -206,9 +286,11 @@ Brain visualisation
 
 % diagram showing the aim: input numbers and output images
 
-Visualisation of brain structure, function and pathology is crucial for understanding the mechanisms underlying certain diseases.
+Visualisation of brain structure, function and pathology is crucial for understanding the mechanisms underlying certain neurodegenerative diseases and eases the interpretation of results in brain medical imaging. This is especially important in populations studies, where two or more populations are compared for any group differences in biomarkers derived from e.g. Magnetic Resonance Imaging, Positron Emmission Tomography (PET) or Computer Tomography (CT). However, for traumatic brain injury or rarer neurodegenerative diseases such as Parkinson's disease or Multiple Sclerosis, the visualisation of statistical results is sometimes not performed due to the inability to register images to a common template or lack of robust registration software, and many studies  \cite{coughlin2015neuroinflammation,mak2014subcortical,schoonheim2012subcortical,chard2002brain} only report results in tables or as box plots. 
 
-Several tools are currently available for brain visualisation ...
+In the case of common neurodegenrative diseases such as Alzheimer's disease, robust image analysis software exists (e.g. SPM) yet the existing visualisation software has several limitations. Most of these software (e.g. SPM, 3D slicer) display of several slices in order to visualise complex patterns of atrophy. Moreover, such visualisation is generally difficult due to the three-dimensional nature of the brain scans. While one of the most popular approaches has been to show one or several representative slices (e.g. \cite{seeley2009neurodegenerative,scahill2002mapping,}, this is problematic for several reasons. First, in order to visualise complex patterns of pathology observed in some diseases, some authors show 4 (\cite{seeley2009neurodegenerative}) or even 8 slices (\cite{migliaccio2015mapping})
+
+
 
 We present BrainPainter, a software for easy visualisation of structures, pathology and biomarkers in the brain. As opposed to previous software, it automatically generates images from pre-defined view-points given a set of input numbers for each brain region used to define their color on a pre-defined color scale.  
 
@@ -242,7 +324,7 @@ BrainPainter works
 
 RVM is supported by the EPSRC Centre For Doctoral Training in Medical Imaging with grant EP/L016478/1. NPO, FB, SK, and DCA are supported by EuroPOND, which is an EU Horizon 2020 project. ALY is currently supported by an EPSRC Doctoral Prize fellowship and was previously supported by EPSRC grant EP/J020990/01. DCA is supported by EPSRC grants J020990, M006093 and M020533. Data collection and sharing for this project was funded by the Alzheimer's Disease Neuroimaging Initiative (ADNI) (National Institutes of Health Grant U01 AG024904) and DOD ADNI (Department of Defense award number W81XWH-12-2-0012). FB is supported by the NIHR UCLH biomedical research centre and the AMYPAD project, which has received support from the EU-EFPIA Innovative Medicines Initiatives 2 Joint Undertaking (AMYPAD project, grant 115952). This project has received funding from the EU Horizon 2020 research and innovation programme under grant agreement No 666992.
 
-
+bibliography
 % \appendix
 
 
@@ -277,7 +359,7 @@ RVM is supported by the EPSRC Centre For Doctoral Training in Medical Imaging wi
 
 %\section*{References}
 
-\bibliographystyle{elsarticle-harv}
+\bibliographystyle{elsarticle}
 \bibliography{bibliography}
 
 % \printbibliography
