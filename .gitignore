@@ -1,0 +1,6 @@
+*.bib
+*.aux
+*.log
+*.out
+*.spl
+*.synctex.gz
