@@ -134,6 +134,8 @@
 }{}}
 \makeatother
 
+\usepackage{tikz}
+
 
 \usepackage{filecontents}
 
@@ -283,11 +285,10 @@
 }
 \end{filecontents*}
 
-\usepackage{natbib}
+\usepackage[round]{natbib}
 % \addbibresource{bibliography.bib}
 
 
-\usepackage{tikz}
 
 \begin{document}
 
@@ -295,34 +296,52 @@
 \newcommand{\frontFig}{
 \begin{center}
 \centering
+\normalfont
+\large
 
 \begin{tikzpicture}
-    \node (A) at (0,1.5) {\textbf{INPUT} (.csv)};
-\node (A2) at (0,0) {\begin{tabular}{c | c c c c}
- Biomarkers &  hippocampus & inferior & superior & ...\\
-  &   & temporal & parietal & ...\\
+    \colorlet{redhsb}[hsb]{red}%
+    \colorlet{yellowhsb}[hsb]{yellow}%
+    \colorlet{orangehsb}[hsb]{orange}%
+    \colorlet{whitehsb}[hsb]{white}%
+    \shade[left color=white,right color=yellow] (-7,-0.5) rectangle (-5,-1); % 
+    \shade[left color=yellow,right color=orange] (-5.02,-0.5) rectangle (-3,-1);
+    \shade[left color=orange,right color=red] (-3.02,-0.5) rectangle (-1,-1); % 
+    \node (G) at (-4.2,0) {User-defined color gradient};
+    \draw (-7,-0.5) -- (-7,-1);\node[inner sep=0] (corr_text) at (-7,-1.3) {0};
+    \draw (-5,-0.5) -- (-5,-1);\node[inner sep=0] (corr_text) at (-5,-1.3) {1};
+    \draw (-3,-0.5) -- (-3,-1);\node[inner sep=0] (corr_text) at (-3,-1.3) {2};
+    \draw (-1,-0.5) -- (-1,-1);\node[inner sep=0] (corr_text) at (-1,-1.3) {3};
+
+    
+    
+    \node (A) at (-4.2,4) {INPUTS};
+\node (A2) at (-4.2,2) {\fontsize{10}{12}\selectfont\begin{tabular}{c | c c c c}
+ Biomarkers &  Hippocampus & Inferior & Superior & ...\\
+(.csv file) &   & temporal & parietal & ...\\
   \hline
 Brain 1 & 0.6 & 2.3 & 1.3 & .. \\
 Brain 2 & 1.2 & 0.0 & 3.0 & .. \\
-... & ...\\
+... & \multicolumn{4}{c}{...}\\
 \end{tabular}};
- \node (B) at (0,-3) {\textbf{OUTPUT}};
- \node (C) at (0,-5) {\includegraphics[height=2.3cm]{images/cortical-front_0.png}
+ \node (B) at (5,4) {OUTPUTS};
+ \node (C) at (5,2) {\includegraphics[height=2.3cm]{images/cortical-front_0.png}
 \includegraphics[height=2.3cm]{images/cortical-back_0.png}
 \includegraphics[height=2.3cm]{images/subcortical_0.png}
 };
  \node (C2) at (C.north) {Brain 1};
 
-    \node (D) at (0,-8.2) {\includegraphics[height=2.3cm]{images/cortical-front_1.png}
+    \node (D) at (5,-1) {\includegraphics[height=2.3cm]{images/cortical-front_1.png}
 \includegraphics[height=2.3cm]{images/cortical-back_1.png}
 \includegraphics[height=2.3cm]{images/subcortical_1.png}};
  \node (D2) at (D.north) {Brain 2};
 
-    \draw[thick,->] (A2) -- (B) node[midway,left] {\textbf{\large{BrainPainter}}};
+    \draw[thick,->,shorten >= -2pt] (-2.7,4) -- (3,4) node[midway,above] {BrainPainter};
   \end{tikzpicture}
-\captionof{figure}{Given a .csv file with biomarkers corresponding to different brain regions, we automatically generate brain images with the cortical surface (left and middle), along with subcortical structures (right).}
+\captionof{figure}{Given a .csv file with region-of-interest (ROI) biomarkers and a user-defined color gradient, we automatically generate brain images with the cortical surface (left and middle) as well as with subcortical structures (right). The input .csv file can contain multiple rows, one for each set of output images. The color gradient is a list of RGB colours given by the user. Final colours are interpolated using the numbers from the input .csv file based on the color gradient -- e.g. if the hippocampus has an associated value of 1.2, it's final color in the output image will be an interpolation of colors 1 and 2 from the gradient.}
 \label{fig:mainDiag}
 \end{center}
+\vspace{-3em}
 }
 
 
@@ -342,9 +361,9 @@ Brain 2 & 1.2 & 0.0 & 3.0 & .. \\
 \author[ucl]{Daniel C. Alexander}
 \author[mit]{Polina Golland}
 
-% \begin{abstract}
-% 
-% \end{abstract}
+\begin{abstract}
+We present BrainPainter, a software that automatically generates images of highlighted brain structures given a simple list of numbers corresponding to the output colours of each region. Compared to existing visualisation software (e.g. Freesurfer, SPM, 3d slicer), our software has three key advantages: (1) it does not require the input data to be in a specialised format, allowing it to be used in combination with any neuroimaging analsys tools, (2) it can visualise subcortical structures and (3) it can be used to generate movies showing dynamic processes, e.g. propagation of pathology on the brain, without the need to write additional software code by the user. We highlight three demonstrations of BrainPainter in existing studies: visualisation of (1) the extent of atrophy through interpolation along a user-defined gradient of colours, as well as progression of pathology in (2) cortical and (3) subcortical regions through snapshots. BrainPainter is available online: \url{https://github.com/mrazvan22/brain-coloring}. It is customisable, easy to use, and requires no installation, as it is distributed in a docker container.
+\end{abstract}
 
 % \begin{keyword}
 % Brain visualisation \sep
@@ -361,10 +380,10 @@ Brain 2 & 1.2 & 0.0 & 3.0 & .. \\
 
 % \FloatBarrier
 
-\section*{Abstract}
-% \label{intro}
+% \section*{Abstract}
+% % \label{intro}
 
-We present BrainPainter, a software that automatically generates images of highlighted brain structures given a simple list of numbers corresponding to the output colours of each region. Compared to existing visualisation software (e.g. Freesurfer, SPM, 3d slicer), our software has three key advantages: (1) it does not require the input data to be in a specialised format, allowing it to be used in combination with any neuroimaging analsys tools, (2) it can visualise subcortical structures and (3) it can be used to generate movies showing dynamic processes, e.g. propagation of pathology on the brain, without the need to write additional software code by the user. We highlight three demonstrations of BrainPainter in existing studies: visualisation of (1) the extent of atrophy through interpolation along a user-defined gradient of colours, as well as progression of pathology in (2) cortical and (3) subcortical regions through snapshots. BrainPainter is available online: \url{https://github.com/mrazvan22/brain-coloring}. It is customisable, easy to use, and requires no installation, as it is distributed in a docker container.
+
 
 
 \section{Introduction}
@@ -410,40 +429,43 @@ In order to remove the need to install Blender and other dependencies, BrainPain
 
 BrainPainter can be used to show the severity of pathology within the human brain. This can be highlighted with different colours that can be customised by the user. An example of such an application if shown in Fig. \ref{fig:youngExtent}, where regions with no pathology are coloured in white and very severe regions are coloured in blue. A gradient such as the one on the right can be used to map the colours to some problem-specific labels.
 
+
+
 \begin{figure}
- \includegraphics[width=0.49\textwidth]{images/young_3brains}
+ \includegraphics[width=0.49\textwidth]{images/young_3brains.png}
  \caption{Demonstration of BrainPainter for showing extent of pathology on a vertical bar, where colours towards blue show increased severity. Image courtesy of \cite{young2018uncovering}.}
  \label{fig:youngExtent}
 \end{figure}
 
-
+\begin{figure*}[htp]
+\centering
+ \includegraphics[width=0.8\textwidth, trim=20 0 0 220, clip]{images/young_progression.png}
+ \caption{Demonstration of our software for showing the temporal progression of pathology, as a sequence of snapshot at different stages. Images used by \cite{young2018uncovering}.}
+  \label{fig:youngProg}
+\end{figure*}
 
 \section{Use case 2: Temporal progression of pathology}
 \label{progression}
 
 Our software can be used to show dynamic processes in the human brain, such as the temporal progression of pathology, as a series of snapshots. For this, one simply needs to provide multiple rows in the input csv, one for each snapshot. Two demonstrations are shown in Fig. \ref{fig:youngProg} and Fig. \ref{fig:peter}.
 
-\begin{figure*}[htp]
-\centering
- \includegraphics[width=0.8\textwidth, trim=20 0 0 220, clip]{images/young_progression}
- \caption{Demonstration of our software for showing the temporal progression of pathology, as a sequence of snapshot at different stages. Images used by \cite{young2018uncovering}.}
-  \label{fig:youngProg}
-\end{figure*}
 
-\begin{figure*}[htp]
+
+\begin{figure}[htp]
 \centering
 % \subfigure{Stage 0\includegraphics[width=0.2\textwidth]{images/ebmhd_pngs/subcortical_stage0.png}}
 \subfloat[Stage 0]{
 \includegraphics[width=0.2\textwidth,trim=70 0 70 0, clip]{images/ebmhd_pngs/subcortical_stage0.png}}
 \subfloat[Stage 3]{
-\includegraphics[width=0.2\textwidth,trim=70 0 70 0, clip]{images/ebmhd_pngs/subcortical_stage3.png}}\subfloat[Stage 7]{
-\includegraphics[width=0.2\textwidth,trim=70 0 70 0, clip]{images/ebmhd_pngs/subcortical_stage7.png}}\subfloat[Stage 10]{
-\includegraphics[width=0.2\textwidth,trim=70 0 70 0, clip]{images/ebmhd_pngs/subcortical_stage10.png}}\subfloat[Stage 13]{
-\includegraphics[width=0.2\textwidth,trim=70 0 70 0, clip]{images/ebmhd_pngs/subcortical_stage13.png}}
+\includegraphics[width=0.2\textwidth,trim=70 0 70 0, clip]{images/ebmhd_pngs/subcortical_stage3.png}}
 
+\subfloat[Stage 7]{
+\includegraphics[width=0.2\textwidth,trim=70 0 70 0, clip]{images/ebmhd_pngs/subcortical_stage7.png}}
+\subfloat[Stage 10]{
+\includegraphics[width=0.2\textwidth,trim=70 0 70 0, clip]{images/ebmhd_pngs/subcortical_stage10.png}}
  \caption{Progression of pathology in subcortical regions within a glass brain, using images generated with our method. Images used by\cite{wijeratne2018image}.}
    \label{fig:peter}
-\end{figure*}
+\end{figure}
 
 \section{Limitations}
 
@@ -462,13 +484,11 @@ The visualisations generated by BrainPainter can be used to significantly enhanc
 \section{Acknowledgements}
 
 
-RVM was supported by the EPSRC Centre For Doctoral Training in Medical Imaging with grant EP/L016478/1. DCA was supported by EuroPOND, which is an EU Horizon 2020 project, and by EPSRC grants J020990, M006093 and M020533. 
-
-
+RVM was supported by the EPSRC Centre For Doctoral Training in Medical Imaging with grant EP/L016478/1, as well as NIH grants NIBIB NAC P41EB015902 and NINDS R01NS086905. DCA was supported by EuroPOND, which is an EU Horizon 2020 project, and by EPSRC grants J020990, M006093 and M020533. PG was supported by NIH grants NIBIB NAC P41EB015902 and NINDS R01NS086905. 
 
 \section*{References}
 
-\bibliographystyle{elsarticle-harv}
+\bibliographystyle{plainnat}
 \bibliography{bibliography}
 
 
