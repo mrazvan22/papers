@@ -40,12 +40,28 @@
 %% The amssymb package provides various useful mathematical symbols
 \usepackage{amssymb}
 \usepackage{array}
+\usepackage{biblatex}
 
 \usepackage{graphicx}
 \usepackage{placeins}
 
 \usepackage{xpatch}
 % \usepackage{biblatex}
+
+\usepackage{etoolbox,lipsum}
+\makeatletter
+\patchcmd\@maketitle\@author{\@author \\[\normalbaselineskip] \myfigure}{}{}
+\newcommand\myfigure{%
+  \makebox[0pt]{
+ \includegraphics[height=3cm]{images/cortical-front_0.png}
+ \includegraphics[height=3cm]{images/cortical-back_0.png}
+ \includegraphics[height=3cm]{images/subcortical_0.png}
+} \\[\normalbaselineskip]
+  \refstepcounter{figure}\normalfont\textbf{Figure~\thefigure: Some stuff about the teaser}
+  \label{fig-teaser}
+}
+\makeatother
+
 
 \usepackage[font=normalfont,labelfont=bf]{caption}
 
@@ -71,7 +87,8 @@
  \let\@oddhead\@empty
  \let\@evenhead\@empty
  \def\@oddfoot{}%
- \let\@evenfoot\@oddfoot}
+ \let\@evenfoot\@oddfoot
+ }
 \makeatother
 
 \usepackage{xcolor}
@@ -109,19 +126,6 @@
 \@makeother\=
 }{}}
 \makeatother
-
-
-% \usepackage{etoolbox}
-% \makeatletter
-%     %replace first instance (first tnote)
-%     \patchcmd{\fnmark}{\ding{73}}{\dag}{}{\@latex@error{Failed to path \string\fnmark\space for \string\ding{73}}}
-%     %replace second instance (second tnote)
-% %     \patchcmd{\tnotemark}{\ding{73}\ding{73}}{\dag\dag}{}{\@latex@error{Failed to path \string\tnotemark\space for \string\ding{73}\string\ding{73}}}
-%     %replace first instance (first tnote)
-%     \patchcmd{\fntext}{\ding{73}}{\dag}{}{\@latex@error{Failed to path \string\fntext\space for \string\ding{73}}}
-%     %replace second instance (second tnote)
-% %     \patchcmd{\tnotetext}{\ding{73}\ding{73}}{\dag\dag}{}{\@latex@error{Failed to path \string\tnotetext\space for \string\ding{73}\string\ding{73}}}
-% \makeatother
 
 
 \usepackage{filecontents}
@@ -206,93 +210,123 @@
   year={2015},
   publisher={Elsevier}
 }
-
-
-
-
+@inproceedings{pieper20043d,
+  title={3D Slicer},
+  author={Pieper, Steve and Halle, Michael and Kikinis, Ron},
+  booktitle={2004 2nd IEEE international symposium on biomedical imaging: nano to macro (IEEE Cat No. 04EX821)},
+  pages={632--635},
+  year={2004},
+  organization={IEEE}
+}
+@article{fischl2012freesurfer,
+  title={FreeSurfer},
+  author={Fischl, Bruce},
+  journal={Neuroimage},
+  volume={62},
+  number={2},
+  pages={774--781},
+  year={2012},
+  publisher={Elsevier}
+}
+@book{penny2011statistical,
+  title={Statistical parametric mapping: the analysis of functional brain images},
+  author={Penny, William D and Friston, Karl J and Ashburner, John T and Kiebel, Stefan J and Nichols, Thomas E},
+  year={2011},
+  publisher={Elsevier}
+}
 \end{filecontents*}
 
-\usepackage{natbib}
+% \addbibresource{bibliography.bib}
 
+\usepackage{natbib}
+\usepackage{tikz}
 
 \begin{document}
 
 
 \begin{frontmatter}
 
-%% Title, authors and addresses
-
-%% use the tnoteref command within \title for footnotes;
-%% use the tnotetext command for theassociated footnote;
-%% use the fnref command within \author or \address for footnotes;
-%% use the fntext command for theassociated footnote;
-%% use the corref command within \author for corresponding author footnotes;
-%% use the cortext command for theassociated footnote;
-%% use the ead command for the email address,
-%% and the form \ead[url] for the home page:
-%% \title{Title\tnoteref{label1}}
-%% \tnotetext[label1]{}
-%% \author{Name\corref{cor1}\fnref{label2}}
-%% \ead{email address}
-%% \ead[url]{home page}
-%% \fntext[label2]{}
-%% \cortext[cor1]{}
-%% \address{Address\fnref{label3}}
-%% \fntext[label3]{}
-
 \title{BrainPainter: A software for the visualisation of brain structures, biomarkers and associated pathological processes}
-
-%% use optional labels to link authors explicitly to addresses:
-%% \author[label1,label2]{}
-%% \address[label1]{}
-%% \address[label2]{}
 
 \ead{razvan@csail.mit.edu}
 \ead[url]{https://github.com/mrazvan22/brain-coloring}
 
-
-\address[ucl]{Centre for Medical Image Computing, University College London, Gower Street, London, United Kingdom, WC1E 6BT}
 \address[mit]{Computer Science and Artificial Intelligence Laboratory, Massachusetts Institute of Technology, Cambridge, USA, MA 02139}
+\address[ucl]{Centre for Medical Image Computing, University College London, Gower Street, London, United Kingdom, WC1E 6BT}
 
-% \address[drc]{Dementia Research Centre, University College London Institute of Neurology, London, United Kingdom, WC1N 3AX}
-
-\author[ucl,mit]{R\u{a}zvan V. Marinescu}
+\author[mit,ucl]{R\u{a}zvan V. Marinescu}
 \author[ucl]{Daniel C. Alexander}
 \author[mit]{Polina Golland}
 
+% \begin{abstract}
+% 
+% \end{abstract}
 
-
-% \address{University College London, Centre for Medical Image Computing, Gower Street, London, WC1E 6BT}
-
-
-\begin{abstract}
-
-
-\end{abstract}
-
-\begin{keyword}
-Alzheimer's disease \sep 
-Brain visualisation
-\end{keyword}
+% \begin{keyword}
+% Brain visualisation \sep
+% Neurodegenerative diseases
+% \end{keyword}
 
 \end{frontmatter}
+
+
+\begin{figure}
+\centering
+
+\begin{tikzpicture}
+    \node (A) at (0,1.5) {\textbf{INPUT}};
+\node (A2) at (0,0) {\begin{tabular}{c | c c c c}
+ Biomarkers &  hippocampus & inferior & superior & ...\\
+  &   & temporal & parietal & ...\\
+  \hline
+Brain 1 & 0.6 & 2.3 & 1.3 & .. \\
+Brain 2 & 1.2 & 0.0 & 3.0 & .. \\
+... & ...\\
+\end{tabular}};
+ \node (B) at (0,-3) {\textbf{OUTPUT}};
+ \node (C) at (0,-5) {\includegraphics[height=2.3cm]{images/cortical-front_0.png}
+\includegraphics[height=2.3cm]{images/cortical-back_0.png}
+\includegraphics[height=2.3cm]{images/subcortical_0.png}
+};
+ \node (C2) at (C.north) {Brain 1};
+
+    \node (D) at (0,-8.2) {\includegraphics[height=2.3cm]{images/cortical-front_1.png}
+\includegraphics[height=2.3cm]{images/cortical-back_1.png}
+\includegraphics[height=2.3cm]{images/subcortical_1.png}};
+ \node (D2) at (D.north) {Brain 2};
+
+    \draw[thick,->] (A2) -- (B) node[midway,left] {\textbf{\large{BrainPainter}}};
+  \end{tikzpicture}
+\caption{Given a .csv file with biomarkers corresponding to different brain regions, we automatically generate brain images with the cortical surface (left and middle), along with subcortical structures (right).}
+\end{figure}
+
 
 %% \linenumbers
 
 %% main text
-\FloatBarrier
+
+
+
+% \FloatBarrier
+
+\section*{Abstract}
+% \label{intro}
+
+We present BrainPainter, a software that automatically ...
+
+
 \section{Introduction}
 \label{intro}
 
+
 % diagram showing the aim: input numbers and output images
 
-Visualisation of brain structure, function and pathology is crucial for understanding the mechanisms underlying certain neurodegenerative diseases and eases the interpretation of results in brain medical imaging. This is especially important in populations studies, where two or more populations are compared for any group differences in biomarkers derived from e.g. Magnetic Resonance Imaging, Positron Emmission Tomography (PET) or Computer Tomography (CT). However, for traumatic brain injury or rarer neurodegenerative diseases such as Parkinson's disease or Multiple Sclerosis, the visualisation of statistical results is sometimes not performed due to the inability to register images to a common template or lack of robust registration software, and many studies  \cite{coughlin2015neuroinflammation,mak2014subcortical,schoonheim2012subcortical,chard2002brain} only report results in tables or as box plots. 
+Visualisation of brain structure, function and pathology is crucial for understanding the mechanisms underlying certain neurodegenerative diseases and eases the interpretation of results in brain medical imaging. This is especially important in populations studies, where two or more populations are compared for any group differences in biomarkers derived from e.g. Magnetic Resonance Imaging, Positron Emmission Tomography (PET) or Computer Tomography (CT). However, for traumatic brain injury or rarer neurodegenerative diseases such as Parkinson's disease or Multiple Sclerosis, the visualisation of statistical results is sometimes not performed due to the inability to register images to a common template or lack of robust registration software, hence many studies  \cite{coughlin2015neuroinflammation,mak2014subcortical,schoonheim2012subcortical,chard2002brain} only report differences between patients and controls in tables or as box plots. 
 
-In the case of common neurodegenrative diseases such as Alzheimer's disease, robust image analysis software exists (e.g. SPM) yet the existing visualisation software has several limitations. Most of these software (e.g. SPM, 3D slicer) display of several slices in order to visualise complex patterns of atrophy. Moreover, such visualisation is generally difficult due to the three-dimensional nature of the brain scans. While one of the most popular approaches has been to show one or several representative slices (e.g. \cite{seeley2009neurodegenerative,scahill2002mapping,}, this is problematic for several reasons. First, in order to visualise complex patterns of pathology observed in some diseases, some authors show 4 (\cite{seeley2009neurodegenerative}) or even 8 slices (\cite{migliaccio2015mapping})
+When alignment to a common population template is possible, e.g. in Alzheimer's disease, excellent 3D visualisation software exists (e.g. 3D slicer \cite{pieper20043d}, Freeview \cite{fischl2012freesurfer} or SPM \cite{penny2011statistical}) which allows interactive visualisation of population differences e.g. the output of voxel-based morphometry (VBM). However, such software have several inherent limitations. First, such software (e.g. Freesurfer\footnote{We actually refer to Freeview, which is the visualisation software bundled with Freesurfer}) generally requires inputs in their own data format, which is usually difficult and time-consuming to create without using their pipeline. Secondly, for highlighting complex patterns of pathology, authors need to show multiple slices from the same 3D image (generally from 4 (\cite{seeley2009neurodegenerative}) up to 8 slices (\cite{migliaccio2015mapping}), which ends up taking too much space on the academic paper being publised. While Freesurfer solves this using a cortical surface-based representation that captures all the complexity of pathology patterns in a single image, it cannot visualise subcortical structures. Third, current software cannot be easily used to generate a movie showing a dynamic process, e.g. propagation of pathology within the human brain.
 
+We present BrainPainter, a software for easy visualisation of structures, pathology and biomarkers in the brain. As opposed to previous visualisation software, the input data is a simple list of numbers in a .csv file representing colours to be assigned to each brain structure. Secondly, it can visualise patterns on both cortical and subcortical structures using a surface repreentation, removing the need to show multiple slices. Third, the images are generated automatically from pre-defined view-points, allowing one to create a movie showing e.g. the propagation of pathology, without the need to write any extra software code. BrainPainter is open source and available on Github: \url{https://github.com/mrazvan22/brain-coloring}.
 
-
-We present BrainPainter, a software for easy visualisation of structures, pathology and biomarkers in the brain. As opposed to previous software, it automatically generates images from pre-defined view-points given a set of input numbers for each brain region used to define their color on a pre-defined color scale.  
 
 
 %\FloatBarrier
@@ -331,47 +365,21 @@ bibliography
 
 
 
-%% The Appendices part is started with the command \appendix;
-%% appendix sections are then done as normal sections
-%% \appendix
+\section*{References}
 
-%% \section{}
-%% \label{}
-
-%% If you have bibdatabase file and want bibtex to generate the
-%% bibitems, please use
-%%
-%%  \bibliographystyle{elsarticle-harv} 
-%%  \bibliography{<your bibdatabase>}
-
-%% else use the following coding to input the bibitems directly in the
-%% TeX file.
-
-% \begin{thebibliography}{00}
-% 
-% \bibitem[Prince(2014)]{prince2014world}
-% Prince, M. and Jackson, J., 2014. World Alzheimer Report 2009, Alzheimer's Disease International.
-% 
-% %% \bibitem[Author(year)]{label}
-% %% Text of bibliographic item
-% 
-% \end{thebibliography}
-
-%\section*{References}
-
-\bibliographystyle{elsarticle}
+\bibliographystyle{elsarticle-harv}
 \bibliography{bibliography}
 
 % \printbibliography
-% 
-% \xpatchbibmacro{date+extrayear}{%
-%   \printtext[parens]%
-% }{%
-%   \setunit{\addperiod\space}%
-%   \printtext%
-% }{}{}
-% 
-% \printbibliography
+
+\xpatchbibmacro{date+extrayear}{%
+  \printtext[parens]%
+}{%
+  \setunit{\addperiod\space}%
+  \printtext%
+}{}{}
+
+\printbibliography
 
 
 \end{document}
