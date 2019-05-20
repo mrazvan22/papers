@@ -31,8 +31,9 @@
 %\documentclass[final,3p,times,twocolumn,authoryear]{elsarticle}
 %% \documentclass[final,5p,times,authoryear]{elsarticle}
 
-\documentclass[final,5p,times,twocolumn,authoryear]{elsarticle}
-
+\documentclass[final,times,twocolumn,authoryear]{elsarticle}
+\usepackage[margin=2cm]{geometry}% by courtesy of Mico
+            
 %% For including figures, graphicx.sty has been loaded in
 %% elsarticle.cls. If you prefer to use the old commands
 %% please give \usepackage{epsfig}
@@ -40,13 +41,17 @@
 %% The amssymb package provides various useful mathematical symbols
 \usepackage{amssymb}
 \usepackage{array}
-\usepackage{biblatex}
+% \usepackage{biblatex}
+
+
+\usepackage{listings}
 
 \usepackage{graphicx}
 \usepackage{placeins}
 
 \usepackage{xpatch}
-% \usepackage{biblatex}
+\usepackage[font=normalfont]{subfig}
+% \usepackage{subcaption}
 
 \usepackage{etoolbox,lipsum}
 \makeatletter
@@ -64,6 +69,8 @@
 
 
 \usepackage[font=normalfont,labelfont=bf]{caption}
+
+
 
 %% The amsthm package provides extended theorem environments
 %% \usepackage{amsthm}
@@ -234,47 +241,63 @@
   year={2011},
   publisher={Elsevier}
 }
+@article{desikan2006automated,
+  title={An automated labeling system for subdividing the human cerebral cortex on MRI scans into gyral based regions of interest},
+  author={Desikan, Rahul S and S{\'e}gonne, Florent and Fischl, Bruce and Quinn, Brian T and Dickerson, Bradford C and Blacker, Deborah and Buckner, Randy L and Dale, Anders M and Maguire, R Paul and Hyman, Bradley T and others},
+  journal={Neuroimage},
+  volume={31},
+  number={3},
+  pages={968--980},
+  year={2006},
+  publisher={Elsevier}
+}
+@article{destrieux2010automatic,
+  title={Automatic parcellation of human cortical gyri and sulci using standard anatomical nomenclature},
+  author={Destrieux, Christophe and Fischl, Bruce and Dale, Anders and Halgren, Eric},
+  journal={Neuroimage},
+  volume={53},
+  number={1},
+  pages={1--15},
+  year={2010},
+  publisher={Elsevier}
+}
+@article{young2018uncovering,
+  title={Uncovering the heterogeneity and temporal complexity of neurodegenerative diseases with Subtype and Stage Inference},
+  author={Young, Alexandra L and Marinescu, Razvan V and Oxtoby, Neil P and Bocchetta, Martina and Yong, Keir and Firth, Nicholas C and Cash, David M and Thomas, David L and Dick, Katrina M and Cardoso, Jorge and others},
+  journal={Nature communications},
+  volume={9},
+  number={1},
+  pages={4273},
+  year={2018},
+  publisher={Nature Publishing Group}
+}
+@article{wijeratne2018image,
+  title={An image-based model of brain volume biomarker changes in Huntington's disease},
+  author={Wijeratne, Peter A and Young, Alexandra L and Oxtoby, Neil P and Marinescu, Razvan V and Firth, Nicholas C and Johnson, Eileanoir B and Mohan, Amrita and Sampaio, Cristina and Scahill, Rachael I and Tabrizi, Sarah J and others},
+  journal={Annals of clinical and translational neurology},
+  volume={5},
+  number={5},
+  pages={570--582},
+  year={2018},
+  publisher={Wiley Online Library}
+}
 \end{filecontents*}
 
+\usepackage{natbib}
 % \addbibresource{bibliography.bib}
 
-\usepackage{natbib}
+
 \usepackage{tikz}
 
 \begin{document}
 
 
-\begin{frontmatter}
-
-\title{BrainPainter: A software for the visualisation of brain structures, biomarkers and associated pathological processes}
-
-\ead{razvan@csail.mit.edu}
-\ead[url]{https://github.com/mrazvan22/brain-coloring}
-
-\address[mit]{Computer Science and Artificial Intelligence Laboratory, Massachusetts Institute of Technology, Cambridge, USA, MA 02139}
-\address[ucl]{Centre for Medical Image Computing, University College London, Gower Street, London, United Kingdom, WC1E 6BT}
-
-\author[mit,ucl]{R\u{a}zvan V. Marinescu}
-\author[ucl]{Daniel C. Alexander}
-\author[mit]{Polina Golland}
-
-% \begin{abstract}
-% 
-% \end{abstract}
-
-% \begin{keyword}
-% Brain visualisation \sep
-% Neurodegenerative diseases
-% \end{keyword}
-
-\end{frontmatter}
-
-
-\begin{figure}
+\newcommand{\frontFig}{
+\begin{center}
 \centering
 
 \begin{tikzpicture}
-    \node (A) at (0,1.5) {\textbf{INPUT}};
+    \node (A) at (0,1.5) {\textbf{INPUT} (.csv)};
 \node (A2) at (0,0) {\begin{tabular}{c | c c c c}
  Biomarkers &  hippocampus & inferior & superior & ...\\
   &   & temporal & parietal & ...\\
@@ -297,9 +320,38 @@ Brain 2 & 1.2 & 0.0 & 3.0 & .. \\
 
     \draw[thick,->] (A2) -- (B) node[midway,left] {\textbf{\large{BrainPainter}}};
   \end{tikzpicture}
-\caption{Given a .csv file with biomarkers corresponding to different brain regions, we automatically generate brain images with the cortical surface (left and middle), along with subcortical structures (right).}
-\end{figure}
+\captionof{figure}{Given a .csv file with biomarkers corresponding to different brain regions, we automatically generate brain images with the cortical surface (left and middle), along with subcortical structures (right).}
+\label{fig:mainDiag}
+\end{center}
+}
 
+
+\begin{frontmatter}
+
+\title{BrainPainter: A software for the visualisation of brain structures, biomarkers and associated pathological processes}
+
+\ead{razvan@csail.mit.edu}
+\ead[url]{https://github.com/mrazvan22/brain-coloring}
+
+\address[mit]{Computer Science and Artificial Intelligence Laboratory, Massachusetts Institute of Technology, Cambridge, USA, MA 02139}
+\address[ucl]{Centre for Medical Image Computing, University College London, Gower Street, London, United Kingdom, WC1E 6BT
+\frontFig
+}
+
+\author[mit,ucl]{R\u{a}zvan V. Marinescu}
+\author[ucl]{Daniel C. Alexander}
+\author[mit]{Polina Golland}
+
+% \begin{abstract}
+% 
+% \end{abstract}
+
+% \begin{keyword}
+% Brain visualisation \sep
+% Neurodegenerative diseases
+% \end{keyword}
+
+\end{frontmatter}
 
 %% \linenumbers
 
@@ -312,7 +364,7 @@ Brain 2 & 1.2 & 0.0 & 3.0 & .. \\
 \section*{Abstract}
 % \label{intro}
 
-We present BrainPainter, a software that automatically ...
+We present BrainPainter, a software that automatically generates images of highlighted brain structures given a simple list of numbers corresponding to the output colours of each region. Compared to existing visualisation software (e.g. Freesurfer, SPM, 3d slicer), our software has three key advantages: (1) it does not require the input data to be in a specialised format, allowing it to be used in combination with any neuroimaging analsys tools, (2) it can visualise subcortical structures and (3) it can be used to generate movies showing dynamic processes, e.g. propagation of pathology on the brain, without the need to write additional software code by the user. We highlight three demonstrations of BrainPainter in existing studies: visualisation of (1) the extent of atrophy through interpolation along a user-defined gradient of colours, as well as progression of pathology in (2) cortical and (3) subcortical regions through snapshots. BrainPainter is available online: \url{https://github.com/mrazvan22/brain-coloring}. It is customisable, easy to use, and requires no installation, as it is distributed in a docker container.
 
 
 \section{Introduction}
@@ -321,11 +373,11 @@ We present BrainPainter, a software that automatically ...
 
 % diagram showing the aim: input numbers and output images
 
-Visualisation of brain structure, function and pathology is crucial for understanding the mechanisms underlying certain neurodegenerative diseases and eases the interpretation of results in brain medical imaging. This is especially important in populations studies, where two or more populations are compared for any group differences in biomarkers derived from e.g. Magnetic Resonance Imaging, Positron Emmission Tomography (PET) or Computer Tomography (CT). However, for traumatic brain injury or rarer neurodegenerative diseases such as Parkinson's disease or Multiple Sclerosis, the visualisation of statistical results is sometimes not performed due to the inability to register images to a common template or lack of robust registration software, hence many studies  \cite{coughlin2015neuroinflammation,mak2014subcortical,schoonheim2012subcortical,chard2002brain} only report differences between patients and controls in tables or as box plots. 
+Visualisation of brain structure, function and pathology is crucial for understanding the mechanisms underlying certain neurodegenerative diseases and eases the interpretation of results in brain medical imaging. This is especially important in populations studies, where two or more populations are compared for any group differences in biomarkers derived from e.g. Magnetic Resonance Imaging, Positron Emmission Tomography (PET) or Computer Tomography (CT). However, for traumatic brain injury or rarer neurodegenerative diseases such as Parkinson's disease or Multiple Sclerosis, the visualisation of statistical results is sometimes not performed due to the inability to register images to a common template or lack of robust registration software, hence many studies (\cite{coughlin2015neuroinflammation, mak2014subcortical, schoonheim2012subcortical, chard2002brain}) only report differences between patients and controls in tables or as box plots. 
 
-When alignment to a common population template is possible, e.g. in Alzheimer's disease, excellent 3D visualisation software exists (e.g. 3D slicer \cite{pieper20043d}, Freeview \cite{fischl2012freesurfer} or SPM \cite{penny2011statistical}) which allows interactive visualisation of population differences e.g. the output of voxel-based morphometry (VBM). However, such software have several inherent limitations. First, such software (e.g. Freesurfer\footnote{We actually refer to Freeview, which is the visualisation software bundled with Freesurfer}) generally requires inputs in their own data format, which is usually difficult and time-consuming to create without using their pipeline. Secondly, for highlighting complex patterns of pathology, authors need to show multiple slices from the same 3D image (generally from 4 (\cite{seeley2009neurodegenerative}) up to 8 slices (\cite{migliaccio2015mapping}), which ends up taking too much space on the academic paper being publised. While Freesurfer solves this using a cortical surface-based representation that captures all the complexity of pathology patterns in a single image, it cannot visualise subcortical structures. Third, current software cannot be easily used to generate a movie showing a dynamic process, e.g. propagation of pathology within the human brain.
+When alignment to a common population template is possible, e.g. in Alzheimer's disease, excellent 3D visualisation software exists  which allows interactive visualisation of population differences -- e.g. 3D slicer (\cite{pieper20043d}), Freesurfer (\cite{fischl2012freesurfer}) or SPM (\cite{penny2011statistical}). However, such software have several inherent limitations. First, such software (e.g. Freesurfer\footnote{We actually refer to Freeview, which is the visualisation software bundled with Freesurfer}) generally requires inputs in their own data format, which is usually difficult and time-consuming to create without using their pipeline. Secondly, for highlighting complex patterns of pathology, authors need to show multiple slices from the same 3D image (generally from 4 (\cite{seeley2009neurodegenerative}) up to 8 slices (\cite{migliaccio2015mapping}), which ends up taking too much space on the academic paper being publised. While Freesurfer solves this using a cortical surface-based representation that captures all the complexity of pathology patterns in a single image, it cannot visualise subcortical structures. Third, current visualisation software cannot be used to generate a movie showing a dynamic process, e.g. propagation of pathology within the human brain, without considerable effort modifying the software.
 
-We present BrainPainter, a software for easy visualisation of structures, pathology and biomarkers in the brain. As opposed to previous visualisation software, the input data is a simple list of numbers in a .csv file representing colours to be assigned to each brain structure. Secondly, it can visualise patterns on both cortical and subcortical structures using a surface repreentation, removing the need to show multiple slices. Third, the images are generated automatically from pre-defined view-points, allowing one to create a movie showing e.g. the propagation of pathology, without the need to write any extra software code. BrainPainter is open source and available on Github: \url{https://github.com/mrazvan22/brain-coloring}.
+We present BrainPainter, a software for easy visualisation of structures, pathology and biomarkers in the brain. As opposed to previous visualisation software, the input data is a simple list of numbers in a .csv file representing colours to be assigned to each brain structure. Secondly, it can visualise patterns on both cortical and subcortical structures using a surface repreentation, removing the need to show multiple slices. Third, the images are generated automatically from pre-defined view-points, and can be used to create a movie showing e.g. the propagation of pathology, without the need to write any extra software code. BrainPainter is open source and available on Github: \url{https://github.com/mrazvan22/brain-coloring}.
 
 
 
@@ -336,17 +388,73 @@ We present BrainPainter, a software for easy visualisation of structures, pathol
 % diagram showing the Design. what kind of atlases can it take, type of colouring, blender integration
 
 
-BrainPainter works 
+% how does BrianPainter work: takes input csv file, generates images. 
+BrainPainter has a very simple workflow. Given an input csv file with biomarkers for each region, it produces high-quality visualisations of cortical and subcortical structures. For this, it uses Blender as a rendering engine, and loads 3D meshes of brain structures which are then coloured according to the input numbers.
+
+% use of blender as rednering engine
+BrianPainter uses open-source software Blender as the rendering engine. We chose Blender for two reasons. First, it is open-source, allowing us to distribute it already integrated with BrainPainter, thus requiring no further installation. Secondly, Blender is a powerful 3D graphics software, allowing one to set complex lightining conditions, handle transparency required for the glass-brain and also perform rendering from virtual cameras that can perform fly-overs around the brain. The software also supports a variety of object formats for the brain template, including the popular .obj mesh format.
+
+% ATLASES: DK
+The software is able to colour and visualise regions belonging to a pre-defined atlas. Currently, we support the Desikan-Killiany (DK) atlas (\cite{desikan2006automated}) and the Destrieux atlas (\cite{destrieux2010automatic}). Moreover, if the input atlas does not match the DK or Destrieux atlas, the user is able to map the input regions to the DK or Destrieux atlas through a simple mapping in the config.py\footnote{\url{https://github.com/mrazvan22/brain-coloring/blob/master/config.py}} file. 
+
+% customisation
+
+BrainPainter can be easily customised in several ways through the config.py settings file. First of all, the colours assigned to each region can be changed. Moreover, we support interpolating through multiple colors on a gradient, for example from white $\rightarrow$ yellow $\rightarrow$ orange $\rightarrow$ red, as in the example from Fig. \ref{fig:mainDiag}. In this case, the input numbers need to be in the range [0,3], where a value of 1.3 would interpolate between colour 1 (yellow) and color 2 (orange). The resolution and the background colour can also be changed. More complex settings such as the viewing angle can be customised from \verb|blendHelper.py:setCamera()|, while luminosity settings can also be changed from \verb|blendHelper.py:setLamp()|. In the future, we plan to integrate the most important such settings into config.py. 
+
+% Docker containers
+In order to remove the need to install Blender and other dependencies, BrainPainter is distributed into a docker container with pre-installed Blender and the python dependencies. 
+
+
+\section{Use case 1: Extent of pathology}
+\label{extent}
+
+BrainPainter can be used to show the severity of pathology within the human brain. This can be highlighted with different colours that can be customised by the user. An example of such an application if shown in Fig. \ref{fig:youngExtent}, where regions with no pathology are coloured in white and very severe regions are coloured in blue. A gradient such as the one on the right can be used to map the colours to some problem-specific labels.
+
+\begin{figure}
+ \includegraphics[width=0.49\textwidth]{images/young_3brains}
+ \caption{Demonstration of BrainPainter for showing extent of pathology on a vertical bar, where colours towards blue show increased severity. Image courtesy of \cite{young2018uncovering}.}
+ \label{fig:youngExtent}
+\end{figure}
 
 
 
-\FloatBarrier
-\section{Use case: Show progression of pathology}
-\label{design}
+\section{Use case 2: Temporal progression of pathology}
+\label{progression}
+
+Our software can be used to show dynamic processes in the human brain, such as the temporal progression of pathology, as a series of snapshots. For this, one simply needs to provide multiple rows in the input csv, one for each snapshot. Two demonstrations are shown in Fig. \ref{fig:youngProg} and Fig. \ref{fig:peter}.
+
+\begin{figure*}[htp]
+\centering
+ \includegraphics[width=0.8\textwidth, trim=20 0 0 220, clip]{images/young_progression}
+ \caption{Demonstration of our software for showing the temporal progression of pathology, as a sequence of snapshot at different stages. Images used by \cite{young2018uncovering}.}
+  \label{fig:youngProg}
+\end{figure*}
+
+\begin{figure*}[htp]
+\centering
+% \subfigure{Stage 0\includegraphics[width=0.2\textwidth]{images/ebmhd_pngs/subcortical_stage0.png}}
+\subfloat[Stage 0]{
+\includegraphics[width=0.2\textwidth,trim=70 0 70 0, clip]{images/ebmhd_pngs/subcortical_stage0.png}}
+\subfloat[Stage 3]{
+\includegraphics[width=0.2\textwidth,trim=70 0 70 0, clip]{images/ebmhd_pngs/subcortical_stage3.png}}\subfloat[Stage 7]{
+\includegraphics[width=0.2\textwidth,trim=70 0 70 0, clip]{images/ebmhd_pngs/subcortical_stage7.png}}\subfloat[Stage 10]{
+\includegraphics[width=0.2\textwidth,trim=70 0 70 0, clip]{images/ebmhd_pngs/subcortical_stage10.png}}\subfloat[Stage 13]{
+\includegraphics[width=0.2\textwidth,trim=70 0 70 0, clip]{images/ebmhd_pngs/subcortical_stage13.png}}
+
+ \caption{Progression of pathology in subcortical regions within a glass brain, using images generated with our method. Images used by\cite{wijeratne2018image}.}
+   \label{fig:peter}
+\end{figure*}
+
+\section{Limitations}
+
+Our software has several limitations that can be addressed in future versions. First of all, we currently only support the DK and Destrieux atlases as these were the only 3D meshes available online\footnote{https://brainder.org/research/brain-for-blender/}. Secondly, it can currently only highlight entire regions-of-interest from such an atlas. However, showing fine-grained voxelwise/vertexwise patterns of colouring requires a specialised input format, which the users will need to convert their data to -- for usability, we decided to only enable coloring based on atlases, although future versions can include the ability to highlight fine-grained patterns. Yet another limitation of BrainPainter is that it cannot visualise more complex structures such as white-matter tracts, although we are happy to add such functionality if there is interest for it within the neuroimaging community.
 
 
-\section{Conclusion} 
+\section{Conclusion}
 
+We presented BrainPainter, an open-source software that can be used to visualise structures, biomarkers and pathologies in the human brain. BrainPainter is easy to use, requires no installation, and accepts input data in a .csv format there each column represents biomarkers in a specific brain region. 
+
+The visualisations generated by BrainPainter can be used to significantly enhance the interpretation of neuroimaging research. The generated images can be easily embedded by researchers into their scientific articles. Moreover, it can also easily generate movies showing dynamic processes, e.g. propagation of pathology, within the human brain. 
 
 
 
@@ -354,14 +462,7 @@ BrainPainter works
 \section{Acknowledgements}
 
 
-
-
-RVM is supported by the EPSRC Centre For Doctoral Training in Medical Imaging with grant EP/L016478/1. NPO, FB, SK, and DCA are supported by EuroPOND, which is an EU Horizon 2020 project. ALY is currently supported by an EPSRC Doctoral Prize fellowship and was previously supported by EPSRC grant EP/J020990/01. DCA is supported by EPSRC grants J020990, M006093 and M020533. Data collection and sharing for this project was funded by the Alzheimer's Disease Neuroimaging Initiative (ADNI) (National Institutes of Health Grant U01 AG024904) and DOD ADNI (Department of Defense award number W81XWH-12-2-0012). FB is supported by the NIHR UCLH biomedical research centre and the AMYPAD project, which has received support from the EU-EFPIA Innovative Medicines Initiatives 2 Joint Undertaking (AMYPAD project, grant 115952). This project has received funding from the EU Horizon 2020 research and innovation programme under grant agreement No 666992.
-
-bibliography
-% \appendix
-
-
+RVM was supported by the EPSRC Centre For Doctoral Training in Medical Imaging with grant EP/L016478/1. DCA was supported by EuroPOND, which is an EU Horizon 2020 project, and by EPSRC grants J020990, M006093 and M020533. 
 
 
 
@@ -370,16 +471,7 @@ bibliography
 \bibliographystyle{elsarticle-harv}
 \bibliography{bibliography}
 
-% \printbibliography
 
-\xpatchbibmacro{date+extrayear}{%
-  \printtext[parens]%
-}{%
-  \setunit{\addperiod\space}%
-  \printtext%
-}{}{}
-
-\printbibliography
 
 
 \end{document}
