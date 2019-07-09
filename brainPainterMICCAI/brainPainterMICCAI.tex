@@ -211,6 +211,34 @@ urlcolor=blue
   journal = {XX},
   howpublished = {XX},
 }
+@Manual{blender2018, 
+   title = {Blender - a 3D modelling and rendering package}, 
+   author = {Blender Online Community}, 
+   organization = {Blender Foundation}, 
+   address = {Stichting Blender Foundation, Amsterdam}, 
+   year = {2018}, 
+   url = {http://www.blender.org}, 
+ }
+@article{douaud2009vivo,
+  title={In vivo evidence for the selective subcortical degeneration in Huntington's disease},
+  author={Douaud, Gwena{\"e}lle and Behrens, Timothy E and Poupon, Cyril and Cointepas, Yann and Jbabdi, Sa{\^a}d and Gaura, V{\'e}ronique and Golestani, Narly and Krystkowiak, Pierre and Verny, Christophe and Damier, Philippe and others},
+  journal={Neuroimage},
+  volume={46},
+  number={4},
+  pages={958--966},
+  year={2009},
+  publisher={Elsevier}
+}
+@article{mudher2002alzheimer,
+  title={Alzheimer's disease--do tauists and baptists finally shake hands?},
+  author={Mudher, Amritpal and Lovestone, Simon},
+  journal={Trends in neurosciences},
+  volume={25},
+  number={1},
+  pages={22--26},
+  year={2002},
+  publisher={Elsevier}
+}
 \end{filecontents*}
 
 % \usepackage{natbib}
@@ -307,7 +335,7 @@ Brain 2 & 1.2 & 0.0 & 3.0 & .. \\
 
 
 \begin{abstract}
-We present BrainPainter, a software that automatically generates images of highlighted brain structures given a list of numbers corresponding to the output colours of each region. Compared to existing visualisation software (e.g. Freesurfer, SPM, 3D Slicer), our software has three key advantages: (1) it does not require the input data to be in a specialised format specific to the software, allowing BrainPainter to be used in combination with any neuroimaging analsys tools, (2) it can visualise both cortical and subcortical structures and (3) it can be used to generate movies showing dynamic processes, e.g. propagation of pathology on the brain, without requiring the user to write additional software code. We highlight two cases where BrainPainter was used in existing neuroimaging studies: visualisation of (1) the extent of atrophy through interpolation along a user-defined gradient of colours, as well as (2) progression of pathology in cortical and subcortical regions through snapshots. BrainPainter is available online \cite{brainPainter}. It can be used using biomarker data from any imaging modalities, or just to highlight a particular brain structure for e.g. anatomy courses. It is also customisable, easy to use, and requires no installation, as it is distributed in a docker container.
+We present BrainPainter, a software that automatically generates images of highlighted brain structures given a list of numbers corresponding to the output colours of each region. Compared to existing visualisation software (e.g. Freesurfer, SPM, 3D Slicer), our software has three key advantages: (1) it does not require the input data to be in a specialised format specific to the software, allowing BrainPainter to be used in combination with any neuroimaging analsys tools, (2) it can visualise both cortical and subcortical structures and (3) it can be used to generate movies showing dynamic processes, e.g. propagation of pathology on the brain, without requiring the user to write additional software code. We highlight two cases where BrainPainter was used in existing neuroimaging studies: visualisation of (1) the degree of atrophy through interpolation along a user-defined gradient of colours, as well as (2) progression of pathology in cortical and subcortical regions through snapshots. BrainPainter is available online \cite{brainPainter}. It can be used using biomarker data from any imaging modalities, or just to highlight a particular brain structure for e.g. anatomy courses. It is also customisable, easy to use, and requires no installation, as it is distributed in a docker container.
 
 \keywords{Brain visualisation, Disease progression, Neuroimaging}
 \end{abstract}
@@ -338,7 +366,7 @@ We present BrainPainter, a software for easy visualisation of structures, pathol
 BrainPainter has a very simple workflow. Given an input csv file with biomarkers for each region, it produces high-quality visualisations of cortical and subcortical structures. For this, it uses Blender as a rendering engine, and loads 3D meshes from a template brain (one 3D mesh for each ROI), which are then coloured according to the input numbers. Instead of providing a list of RGB colours for each ROI, we choose a simpler interface of providing one number for each ROI which maps to an RGB color using a user-defined color gradient. 
 
 % use of blender as rednering engine
-BrianPainter uses open-source software Blender as the rendering engine. We chose Blender for two reasons. First, it is open-source, allowing us to distribute it already integrated with BrainPainter, thus requiring no further installation. Secondly, Blender is a powerful 3D graphics software, allowing one to set complex lightining conditions, handle transparency required for the glass-brain and also perform rendering from virtual cameras that can perform fly-overs around the brain. The software also supports a variety of object formats for the brain template, including the popular .obj mesh format.
+BrianPainter uses open-source software Blender \cite{blender2018} as the rendering engine. We chose Blender for two reasons. First, it is open-source, allowing us to distribute it already integrated with BrainPainter, thus requiring no further installation. Secondly, Blender is a powerful 3D graphics software, allowing one to set complex lightining conditions, handle transparency required for the glass-brain and also perform rendering from virtual cameras that can perform fly-overs around the brain. The software also supports a variety of object formats for the brain template, including the popular .obj mesh format.
 
 % ATLASES: DK
 The software is able to colour and visualise regions belonging to a pre-defined atlas. Currently, we support the Desikan-Killiany (DK) atlas \cite{desikan2006automated} and the Destrieux atlas \cite{destrieux2010automatic}. Moreover, if the input atlas does not match the DK or Destrieux atlas, the user is able to map the input regions to the DK or Destrieux atlas through a simple mapping in the main configuration file.  % \footnote{\url{https://github.com/mrazvan22/brain-coloring/blob/master/config.py}}
@@ -363,9 +391,9 @@ More complex settings such as the viewing angle and luminosity can also be custo
 
 \begin{figure}
 \centering
- \includegraphics[width=1\textwidth]{images/young_3brains.png}
- \caption{Demonstration of BrainPainter for showing extent of pathology. The vertical bar on the right shows the degree of severity. Image courtesy of \cite{young2018uncovering}.}
- \label{fig:youngExtent}
+ \includegraphics[width=0.8\textwidth]{images/young_3brains.png}
+ \caption{Demonstration of BrainPainter for showing degree of pathology. The vertical bar on the right shows the degree of severity. Image courtesy of \cite{young2018uncovering}.}
+ \label{fig:youngDegree}
 \end{figure}
 
 \begin{figure*}[htp]
@@ -375,28 +403,31 @@ More complex settings such as the viewing angle and luminosity can also be custo
   \label{fig:youngProg}
 \end{figure*}
 
-\section{First use case: Visualising the extent of pathology}
-\label{extent}
+\section{First use case: Visualising the degree of pathology}
+\label{degree}
 
-In the first use case, we want to visualise the extent of pathology in Alzheimer's disease. During the progression of Alzheimer's disease, some regions of the brain such as the hippocampus and temporal lobes will be more affected compared to other regions of the brain such as the occipital lobe. Visualisation of pathology in AD is important in order to understand its underlying mechanisms and generate new hypotheses. 
+In the first use case, we want to visualise the degree of pathology in Alzheimer's disease. During the progression of Alzheimer's disease, some regions of the brain such as the hippocampus and temporal lobes will be more affected compared to other regions of the brain such as the occipital lobe. Visualisation of pathology in AD is important in order to understand its underlying mechanisms and generate new hypotheses. 
 
 The notion of pathology here is abstract, and can refer to atrophy as measured by volume loss or cortical thinning, white matter degradation as measured by diffusion tensor imaging (DTI) changes in fractional anisotropy (FA), or the level of abnormal confirmations of proteins such as amyloid-beta or tau as measured by Positron Emission Tomography. However, BrainPainter is agnostic to the meaning of these biomarkers and can be used with any other modality, including markers derived from several modalities together. 
 
-Fig. \ref{fig:youngExtent} shows an application of BrainPainter by \cite{young2018uncovering} to highlight extent of atrophy in Alzheimer's disease. Regions with no atrophy are coloured in white, while regions with severe atrophy are coloured in blue. The gradient on the right shows, for every color, the number of standard deviations away from controls. We do not automatically generate the gradient on the right, as its labels are dependent on the specifics of the task. 
+Fig. \ref{fig:youngDegree} shows an application of BrainPainter by \cite{young2018uncovering} to highlight the degree of atrophy in Alzheimer's disease. Regions with no atrophy are coloured in white, while regions with severe atrophy are coloured in blue. The gradient on the right shows, for every color, the number of standard deviations away from controls. We do not automatically generate the gradient on the right, as its labels are specific to the task. 
 
 
 \section{Second use case: Visualising the temporal progression of pathology}
 \label{progression}
 
-In the second use case, we would like to visualise the temporal progression of Alzheimer's disease. Alzheimer's disease is characterised by a slow, continuous progression -- while it's mechanisms are still not fully understood, it is currently believed that initial misfolding in the amyloid and tau proteins cause a cascade of events that included the brakdown of the blood-brain barrier, demyelination, neural death and cognitive decline. Therefore, being able to visualise the progression of these events, including their timing and speed, is crucial for understanding the mechanisms of AD. 
-
-\TODOTODO .. rewrite next paragraph
-
-Two demonstrations are shown in Fig. \ref{fig:youngProg} and Fig. \ref{fig:peter}.
+In the second use case, we would like to visualise the temporal progression of Alzheimer's disease (AD). Alzheimer's disease is characterised by a slow, continuous progression -- while it's mechanisms are still not fully understood, it is currently believed that initial abnormalities in the amyloid and tau proteins cause a cascade of events that eventually lead to neural death and cognitive decline \cite{mudher2002alzheimer}. Therefore, being able to visualise the progression of these events, including their timing and speed, is crucial for understanding the mechanisms of Alzheimer's disease. 
 
 
-Our software can also be used to show dynamic processes in the human brain, such as the temporal progression of pathology, as a series of snapshots. For this, one simply needs to provide multiple rows in the input csv, one for each snapshot. 
+Fig. \ref{fig:youngProg}, reproduced here from \cite{young2018uncovering}, demonstrates the ability of BrainPainter to visualise evolution of atrophy in two \emph{cortical} and \emph{subcortical} subtypes of Alzheimer's disease, characterised by prominent atrophy in the cortical and subcortical regions respectively. The study done by \cite{young2018uncovering} used data from the Alzheimer's disease Neuroimaging Initiative to disentangle the heterogeneity of AD into subtypes with different progression. Here, visualisations provided by BrainPainter were able to characterise not only the degree of atrophy in each region (white/red to blue colors), but also the timing of atrophy events. For example, even in the \emph{cortical} subtype, the hippocampus becomes affected by stage 13, while similarly, in the \emph{subcortical} subtype the temporal lobe becomes affected by stage 13. 
 
+
+\section{Third use case: Visualising pathology in subcortical structures}
+\label{progression}
+
+The ability to visualise subcortical structures is crucial for neurodegenerative diseases that cause damage to these regions. Apart from Alzheimer's disease, Huntington's disease (HD) is also known for targetting subcortical regions \cite{douaud2009vivo,wijeratne2018image}. The neurodegeneration in HD is believed to begin with degeneration of gray and white matter in the striatum and pallidum \cite{douaud2009vivo}.
+
+Fig. \ref{fig:peter}, reproduced and adapted with permission from \cite{wijeratne2018image}, shows visualisations generated by BrainPainter of atrophy progression in subcortical areas, for Huntington's disease. The images show early involvement of the putamen, caudate and pallidum in the progression of Huntington's disease, and demonstrate the potential of BrainPainter in visualising pathology dynamics in subcortical regions using a parsimonious glass-brain image.
 
 
 \begin{figure}[htp]
@@ -414,18 +445,16 @@ Our software can also be used to show dynamic processes in the human brain, such
    \label{fig:peter}
 \end{figure}
 
-\section{Limitations}
 
-Our software has several limitations that can be addressed in future versions. First of all, we currently only support the DK and Destrieux atlases, as these were the only 3D meshes we managed to find online\footnote{https://brainder.org/research/brain-for-blender/}. Secondly, it can currently only highlight entire regions-of-interest from such an atlas. However, showing fine-grained voxelwise/vertexwise patterns of colouring requires a specialised input format, which the users will need to convert their data to -- for usability, we decided to only enable coloring based on atlases, although future versions can include the ability to highlight fine-grained patterns. Yet another limitation of BrainPainter is that it cannot visualise more complex structures such as white-matter tracts, although we are happy to add such functionality if there is interest for it within the neuroimaging community.
 
 
 \section{Conclusion}
 
-We presented BrainPainter, an open-source software that can be used to visualise structures, biomarkers and pathologies in the human brain. BrainPainter is easy to use, requires no installation, and accepts input data in a .csv format there each column represents biomarkers in a specific brain region. 
+We presented BrainPainter, an open-source software that can be used to visualise structures, biomarkers and pathologies in the human brain. BrainPainter is easy to use, requires no installation, and accepts input data in a .csv format there each column represents biomarkers in a specific brain region. The visualisations generated by BrainPainter can be used to significantly enhance the interpretation of neuroimaging research. The generated images can be easily embedded by researchers into their scientific articles. While not demonstrated here, BrainPainter can also easily generate movies showing dynamic processes, e.g. propagation of pathology, within the human brain. 
 
-The visualisations generated by BrainPainter can be used to significantly enhance the interpretation of neuroimaging research. The generated images can be easily embedded by researchers into their scientific articles. Moreover, it can also easily generate movies showing dynamic processes, e.g. propagation of pathology, within the human brain. 
+Our software has several limitations that can be addressed in future versions. First of all, we currently only support the DK and Destrieux atlases, as these were the only 3D meshes we managed to find online\footnote{https://brainder.org/research/brain-for-blender/}. Secondly, it can currently only highlight entire regions-of-interest from such an atlas. However, showing fine-grained voxelwise/vertexwise patterns of colouring requires a specialised input format, which the users will need to convert their data to -- for usability, we decided to only enable coloring based on atlases, although future versions can include the ability to highlight fine-grained patterns. Yet another limitation of BrainPainter is that it cannot visualise more complex structures such as white-matter tracts, although we are happy to add such functionality if there is interest for it within the neuroimaging community.
 
-
+\TODOaddfuturework
 
 % \FloatBarrier
 % \section{Acknowledgements}
