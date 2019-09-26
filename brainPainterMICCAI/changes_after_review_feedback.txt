@@ -1,0 +1,23 @@
+We addressed the following reviewer feedback:
+
+
+R1.1. A couple of screenshots of graphical interface of this software may be of better helpful to show the friendliness of the software. For example, it was claimed that colors of ROIs could be changed. Is this done by providing a new input file or just in an interactive manner on the GUI?
+
+We now added a screenshot in Fig. 2, of the user-interface from http://brainpainter.csail.mit.edu.
+
+R1.2. The key feature, moving making, was not demonstrated in the paper. A supplemental movie clip may help.
+
+We agree with the reviewer, and we plan to add this in the github repository page. 
+
+R2.1) what language is your BrainPainter coded?
+
+BrainPainter was coded in Python. We now mention this in the Design section as follows: "As BrainPainter is written in Python, it allows interfacing with any Blender function."
+
+
+R2.2) In fact your first advantage "it does not require the input data to be in a specialized format...." is more important. In fact, there is another tool, named BrainNet based on Matlab, which can is pretty similar to your software but BrainNet requires specific input format. 
+
+We do agree with the reviewer, and re-emphasize this advantage in the introduction as follows: "While creating these proprietary data formats is necessary when users need to display voxelwise visualisations, often users only need to highlight entire ROIs – in this simpler case the user could only provide a list of RGB colors for each ROI in a csv file, removing the need to create input data in a specialised format." 
+
+R2.3) It will be great if you can allow users to customize the atlas.
+
+We actually already allow this. We now mention this explicitly in the paper as follows: "..., a custom atlas can also be used by mapping those regions to any of the three atlases currently supported, through the modification a simple mapping in the main configuration file."
