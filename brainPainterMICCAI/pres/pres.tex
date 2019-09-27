@@ -230,8 +230,7 @@
 \newcommand*{\pcaLongFigs}{\pcaLongPaperLoc/figures}
 
 
-% \includeonlyframes{1-20}
-%\includeonlyframes{current}
+
 
 
 
@@ -346,7 +345,7 @@
 \centering
  \begin{minipage}[t][3.5cm][t]{\textwidth}
  \centering
-\myno cannot be automated for image generation\\
+\myno cannot automate image generation\\
 \includegraphics[width=0.5\textwidth]{images/freeviewInterface.jpg}
  \end{minipage}
 
@@ -437,7 +436,7 @@
  \end{minipage}
 
 
-\myyes can be used to generate multiple images
+\myyes can automate image generation
 
 \includegraphics[height=1cm,trim=0 0 900 0]{images/brainTransparent} 
 \includegraphics[height=1cm,trim=0 0 900 0]{images/brainTransparent} 
@@ -475,11 +474,11 @@
  \frametitle{Further motivation}
 
  
-\newcommand{\speed}{2} 
+\newcommand{\speed}{4} 
 \newcommand{\animOne}{
 \begin{animateinline}[autoplay,loop]{\speed}  
-%    \multiframe{24}{i=1+1}{% loop through pictures
-  \multiframe{1}{i=1+1}{% loop through pictures \multiframe{nrOfPics}{i=initialVal+increment} 
+   \multiframe{24}{i=1+1}{% loop through pictures
+%  \multiframe{1}{i=1+1}{% loop through pictures \multiframe{nrOfPics}{i=initialVal+increment} 
   \centering
    \includegraphics[width=0.25\textwidth]{images/sara_video/outer-\i.png}
   }
@@ -487,7 +486,7 @@
 }
  
 \begin{itemize}
- \item simple input files $\rightarrow$ no need to read specifications and integrate with Freesurfer, SPM, etc ..
+ \item simple input files $\rightarrow$ no need to read specifications and integrate with FreeSurfer, SPM, etc ..
  \item automated image generation $\rightarrow$ create movies showing e.g. progression of brain pathology
 
  
@@ -513,7 +512,10 @@
 \begin{columns}
  \begin{column}{0.5\textwidth}
  \begin{itemize}
-   \item surface representation $\rightarrow$ easy visualisation of subcortical structures
+   \item surface representation $\rightarrow$ easy visualisation of subcortical structures 
+   \begin{itemize}
+     \item not possible in FreeSurfer
+   \end{itemize}
  \end{itemize}
  \end{column}
 \begin{column}{0.5\textwidth}
@@ -728,10 +730,10 @@ Wijeratne et al., Ann. Clin. Neurol., 2018
  
 \begin{figure}
 \centering
-\newcommand{\speed}{2} 
+\newcommand{\speed}{4} 
 \begin{animateinline}[autoplay,loop]{\speed}  
-%    \multiframe{24}{i=1+1}{% loop through pictures
-  \multiframe{1}{i=1+1}{% loop through pictures \multiframe{nrOfPics}{i=initialVal+increment} 
+    \multiframe{24}{i=1+1}{% loop through pictures
+ % \multiframe{1}{i=1+1}{% loop through pictures \multiframe{nrOfPics}{i=initialVal+increment} 
   \parbox{\textwidth}{
   \centering
   \begin{subfigure}[b]{0.31\textwidth}
